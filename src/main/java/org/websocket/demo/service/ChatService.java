@@ -26,6 +26,7 @@ public class ChatService {
     // 서버에 생성된 모든 채팅방의 정보를 모아둔 구조체. (채팅방의 정보 저장은 빠른 구현을 위해 일단 DB 안 쓰고 HashMap 저장으로 구현)
     private Map<String, ChatRoom> chatRooms;
 
+
     // 생성자 이용해 생성된 후에 할 일을 정의
     @PostConstruct
     private void init() {
