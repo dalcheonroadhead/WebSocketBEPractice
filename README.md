@@ -182,7 +182,7 @@ public class WebSockConfig implements WebSocketConfigurer {
 @Configuration이란 어노테이션이 달린 클래스 또한 Bean Factory에 자동으로 등록 된다. @Configuration이란 어노테이션 안에도 @Conponent라는 태그가 포함되어 있기 때문이다. 그냥 @Component와 다른 점은, @Configuration 어노테이션의 경우 그 안에 들어있는 Bean 객체들도 싱글톤으로 사용되도록 보장한다. (하나의 클래스 당 하나의 객체만 존재하고, 필요할 때마다 그것을 재활용 하도록) 
 예를 들어 설명해보겠다. 
 
-![image1](.\Images\image1.png)
+<img src=".\Images\image1.PNG" alt="directoryhieracy" align="left" />
 
 예를 들어 이런 식으로 클래스들이 만들어져 있고 연관관계가 있다고 해보자. 
 AppConfig의 경우 Mybean 객체와 MyBeanConsumer 객체를 둘 다 사용하고, MyBeanConsumer 객체는 Mybean 객체를 사용한다. 만약 AppConfig가 @Configuration 태그를 사용하고 있다면, 해당 클래스가 멤버 객체로 사용하고 있는 멤버변수들은 무조건 싱글톤을 지켜야 한다. 따라서 AppConfig를 실행할 경우 출력될 문구는 다음과 같다. 
@@ -570,7 +570,7 @@ websocksession의 경우, sendMessage라는 매소드를 가지고 있다. 해�
 
 먼저 PostMan을 통해 Post 요청을 보내서 채팅방을 생성한다. 
 
-![image2](.\\Images\image2.PNG)
+<img src=".\Images\image2.PNG" alt="directoryhieracy" align="left" />
 
 우리는 결과값으로 받은 방번호를 통해서 접속해야한다. 아직 프론트 엔드는 구현하지 않았음으로, 방번호는 우리가 직접 복사하여 클라이언트 입장시 사용한다. 
 
@@ -578,25 +578,24 @@ websocksession의 경우, sendMessage라는 매소드를 가지고 있다. 해�
 
 우리는 아직 프론트 엔드 구현이 안되어있기 때문에 크롬 확장자 중 하나인  'WebSocketClient'를 쓴다. 실시간 채팅 확인을 위해 크롬 브라우저를 두 개 띄우고 양 쪽에서 전부 채팅방에 입장한다. 위에서 봤듯이 입장을 위한 Message Type은 ENTER였다. 적절한 JSON을 만들어서 입장하겠다. 
  아까 webSockConfig 파일에서 정의 해두었던, /ws/chat이 웹소켓 채팅방을 쓸 수 있는 주소 이다. 
-
-![image3](.\Images\image3.PNG)
+<img src=".\Images\image3.PNG" alt="directoryhieracy" align="left" />
 
 일단 이거 깔아라 
 
-![image4](.\Images\image4.PNG)
+<img src=".\Images\image4.PNG" alt="directoryhieracy" align="left" />
 
-해당 방번호로 입장하겠다. ![image5](C:\Users\SSAFY\IdeaProjects\WebSocketDemo\Images\image5.PNG)
+해당 방번호로 입장하겠다. <img src=".\Images\image5.PNG" alt="directoryhieracy" align="left" />
 
 입장 성공했다. 
 
 이번엔 2번째 클라이언트를 입장시켜보겠다. 2번째 클라이언트가 들어오면 전개도에 따라 2번째 클라이언트가 입장했다는 메세지가 차무식과 클라이언트 2 전부에게 가야한다. 
-![image6](C:\Users\SSAFY\IdeaProjects\WebSocketDemo\Images\image6.PNG)
+<img src=".\Images\image6.PNG" alt="directoryhieracy" align="left" />
 
 클라이언트 2 이름은 허성태인데 허성태가 입장했음이 양쪽 다에게 떴다. 
 
 마지막으로 TALK을 해보겠다. 차무식이 허성태한테 협박을 하도록 해보겠다. 메세지 타입을 TALK으로 바꾼다. 
 
-![image7](C:\Users\SSAFY\IdeaProjects\WebSocketDemo\Images\image7.PNG)
+<img src=".\Images\image7.PNG" alt="directoryhieracy" align="left" />
 
 협박 문자가 잘 갔다. 
 다음은 웹 소켓에 프론트엔드도 추가해서 더 심화버젼을 만들어보겠다. 해당 내용 설명은 STEP2 branch에 올리고 만들겠다.  
