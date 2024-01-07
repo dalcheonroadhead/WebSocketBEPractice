@@ -42,7 +42,4 @@ public class ChatRoom {
     public <T> void sendMessage(T message, ChatService chatService) {
         sessions.parallelStream().forEach(session -> chatService.sendMessage(session, message));
     }
-
-
-
 }

@@ -23,7 +23,7 @@ public class WebSockChatHandler extends TextWebSocketHandler {
     @Override
     protected void handleTextMessage (WebSocketSession session, TextMessage message ) throws Exception{
 
-        // 클라이언트로부터 받은 메세지를 콘솔로그로 출력 ->
+        // payLoad는 데이터 자체를 의미하는 말이다. 택배 박스가 왔을 때, 내가 시킨 물건이 payLoad이고 뽁뽁이, 테이프 등은 payLoad가 아니다.
         String payLoad = message.getPayload();
         log.info("payload {}", payLoad);
 
@@ -31,13 +31,13 @@ public class WebSockChatHandler extends TextWebSocketHandler {
         // TextMessage textMessage = new TextMessage("Welcome Chatting Server ~ ^^");
         // session.sendMessage(textMessage);
 
-        // 웹소켓 클라이언트로부터 채팅 메세지를 전달받아 채팅 메세지 객체로 변환
+        // 1. 웹소켓 클라이언트로부터 메세지 내용을 전달받아 채팅 메세지 객체로 변환
         ChatMessage chatMessage = objectMapper.readValue(payLoad, ChatMessage.class);
 
-        // 전달 받은 메세지에 담긴 채팅방 ID로 발송 대상의 채팅방 정보를 조회함.
+        // 2. 전달 받은 메세지에 담긴 채팅방 ID로 내 메세지를 전송해야 하는 채팅방 객체를 불러온다.
         ChatRoom room = chatService.findRoomById(chatMessage.getRoomId());
 
-        // 해당 채팅방에 입장해있는 모든 클라이언트들(Websocket session)에게 타입에 따른 메세지 발송
+        // 3. 해당 채팅방에 입장해있는 모든 클라이언트들(Websocket session)에게 타입에 따른 메세지 발송
         room.handleActions(session, chatMessage, chatService);
 
 
