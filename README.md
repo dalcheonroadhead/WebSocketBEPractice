@@ -182,7 +182,7 @@ public class WebSockConfig implements WebSocketConfigurer {
 @Configuration이란 어노테이션이 달린 클래스 또한 Bean Factory에 자동으로 등록 된다. @Configuration이란 어노테이션 안에도 @Conponent라는 태그가 포함되어 있기 때문이다. 그냥 @Component와 다른 점은, @Configuration 어노테이션의 경우 그 안에 들어있는 Bean 객체들도 싱글톤으로 사용되도록 보장한다. (하나의 클래스 당 하나의 객체만 존재하고, 필요할 때마다 그것을 재활용 하도록) 
 예를 들어 설명해보겠다. 
 
-![image1](.\Images\image1.PNG)
+![image1](.\Images\image1.png)
 
 예를 들어 이런 식으로 클래스들이 만들어져 있고 연관관계가 있다고 해보자. 
 AppConfig의 경우 Mybean 객체와 MyBeanConsumer 객체를 둘 다 사용하고, MyBeanConsumer 객체는 Mybean 객체를 사용한다. 만약 AppConfig가 @Configuration 태그를 사용하고 있다면, 해당 클래스가 멤버 객체로 사용하고 있는 멤버변수들은 무조건 싱글톤을 지켜야 한다. 따라서 AppConfig를 실행할 경우 출력될 문구는 다음과 같다. 
