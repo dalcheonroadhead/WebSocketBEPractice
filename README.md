@@ -507,7 +507,7 @@ UUID는 Univarsally Unique IDentifier의 약자로 네크워크 상에 고유한
 ### (2) 왼쪽에서 채팅방 만들기, 오른쪽에서 확인
 
 
-###  ![2_4](C:\Users\SSAFY\IdeaProjects\WebSocketDemo\Images\2_4.PNG)
+###  ![2_4](.\Images\2_4.PNG)
 
 
 ### ![2_5](.\Images\2_5.PNG)(3) 양쪽에서 채팅방에 들어가기
