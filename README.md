@@ -124,7 +124,9 @@ public class WebSockConfig implements WebSocketMessageBrokerConfigurer {
 }
 ```
 
+
 이제 STOMP의 원리대로 메세지를 발신하고 수신한다. 따라서 우리는 STOMP를 수입하여 쓸 것이므로, 따로 WebSocketHandler를 써서 요청 처리 방안을 정의할 필요가 없다.
+
 
 
 
@@ -496,6 +498,7 @@ UUID는 Univarsally Unique IDentifier의 약자로 네크워크 상에 고유한
 
 # 3. 시연 
 
+
 ### (1) SpringBoot 실행 후 room.ftl 화면으로 이동
 
 일단 양방향 통신을 보여주기 위해 화면을 두 개 띄우겠다. 
@@ -503,7 +506,9 @@ UUID는 Univarsally Unique IDentifier의 약자로 네크워크 상에 고유한
 
 ### (2) 왼쪽에서 채팅방 만들기, 오른쪽에서 확인
 
+
 ###  ![2_4](C:\Users\SSAFY\IdeaProjects\WebSocketDemo\Images\2_4.PNG)
+
 
 ### ![2_5](.\Images\2_5.PNG)(3) 양쪽에서 채팅방에 들어가기
 
@@ -513,9 +518,12 @@ UUID는 Univarsally Unique IDentifier의 약자로 네크워크 상에 고유한
 
 ![2_7](.\Images\2_7.PNG)
 
+
 ### (4) 오른쪽에서 채팅 쳐보기, 왼쪽에서도 뜨는지 확인 
 
 ![2_8](.\Images\2_8.PNG)
 
+
 다음 장으로 가볼껴?
+
 
