@@ -1,0 +1,11 @@
+
+# alpha 서버용 환경 설정 파일이다. 로컬에서만 테스트할 것이라면 굳이 추가할 필요가 없다.
+# redis host와 port에 서버에 올라간 Redis의 host와 port를 넣는다.
+
+spring:
+  profiles:
+    active: alpha
+  data:
+    redis:
+      host: localhost
+      port: 6379

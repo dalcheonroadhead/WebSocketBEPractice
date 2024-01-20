@@ -1,4 +1,6 @@
 spring:
+  profiles:
+    active: local
   devtools:
     livereload:
       enabled: true
@@ -7,3 +9,4 @@ spring:
   freemarker:
     cache: false
     suffix: .ftl
+

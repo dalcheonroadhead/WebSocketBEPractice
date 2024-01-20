@@ -15,7 +15,7 @@ public class WebSockConfig implements WebSocketMessageBrokerConfigurer {
 
 
     // 메세지 송 수신에 대한 설정을 등록한 매소드이다.
-    // 메세지 수신은 sub/room/방 번호로 해당 방 번호로 온 메세지만 수신하도록 설정
+    // 메세지 수신은 sub/room/{방 번호}로 해당 방 번호로 온 메세지만 수신하도록 설정
     // 메세지 발신의 경우에는 pub/room 으로 보내고 방 번호는 responseBody 속 메타데이터로 저장한다.
     @Override
     public void configureMessageBroker (MessageBrokerRegistry config){

@@ -69,6 +69,7 @@
                 this.message = '';
             },
             recvMessage: function(recv) {
+
                 this.messages.unshift({"type":recv.type,"sender":recv.type=='ENTER'?'[알림]':recv.sender,"message":recv.message})
             }
         }
@@ -77,6 +78,7 @@
     ws.connect({}, function(frame) {
         ws.subscribe("/sub/chat/room/"+vm.$data.roomId, function(message) {
             var recv = JSON.parse(message.body);
+
             vm.recvMessage(recv);
         });
         ws.send("/pub/chat/message", {}, JSON.stringify({type:'ENTER', roomId:vm.$data.roomId, sender:vm.$data.sender}));
