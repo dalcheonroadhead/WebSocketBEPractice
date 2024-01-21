@@ -1,18 +1,23 @@
 package org.websocket.demo.config;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.messaging.simp.config.ChannelRegistration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
+import org.websocket.demo.config.handler.StompHandler;
 
 // 이제 STOMP를 이용하여 WebSocket을 구현할 것이기 때문에 따로 WebSockHandler가 필요 없다.
 // 왜냐하면 STOMP가 웹 소켓에서 메세지를 다루는 방법에 대한 규약이기 때문이다.
 
+@RequiredArgsConstructor
 @Configuration
 @EnableWebSocketMessageBroker // 웹소켓에서 STOMP를 활성화 하기 위한 어노테이션
 public class WebSockConfig implements WebSocketMessageBrokerConfigurer {
 
+    private final StompHandler stompHandler;
 
     // 메세지 송 수신에 대한 설정을 등록한 매소드이다.
     // 메세지 수신은 sub/room/{방 번호}로 해당 방 번호로 온 메세지만 수신하도록 설정
@@ -37,6 +42,14 @@ public class WebSockConfig implements WebSocketMessageBrokerConfigurer {
         // 따라서 전체 주소는 ws://localhost:8080/ws-stomp
         registry.addEndpoint("/ws-stomp").setAllowedOriginPatterns("*")
                 .withSockJS();
+    }
+
+
+    // 인터셉터 설정 -> 우리가 만든 stompHandler를 Websocket 연결 전 처리기로 등록
+    // WebSocket 최초 연결 시 유효성 검사
+    @Override
+    public void configureClientInboundChannel (ChannelRegistration registration){
+        registration.interceptors(stompHandler);
     }
 
 }
