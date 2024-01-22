@@ -9,6 +9,7 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.stereotype.Controller;
 import org.websocket.demo.model.ChatMessage;
 import org.websocket.demo.repo.ChatRoomRepository;
+import org.websocket.demo.service.ChatService;
 import org.websocket.demo.service.JwtTokenProvider;
 
 // WebSocket으로 들어오는 메세지를 처리하는 컨트롤러
@@ -25,29 +26,27 @@ import org.websocket.demo.service.JwtTokenProvider;
 @Controller
 public class ChatController {
 
-    private final RedisTemplate<String, Object> redisTemplate;
-    private final ChannelTopic channelTopic;
     private final JwtTokenProvider jwtTokenProvider;
+    private final ChatRoomRepository chatRoomRepository;
+    private final ChatService chatService;
 
     // @MessageMapping == 메세지가 WebSocket으로 발행되는 경우 밑의 매소드가 실행된다.
     @MessageMapping("/chat/message")
     public void message (ChatMessage message, @Header("token") String token) {
 
-        //WebSocket 연결 후에 메세지 전송 시 마다 유효한 Token을 가졌는지 검사하는 코드
-        // 만약 유효하지 않은 토큰을 가졌다면, if문 이하 코드가 실행 안될터이고, websocket을 통해 보낸 메세지는 무시된다.
+        // WebSocket 연결 후에 메세지 전송 시 마다 유효한 Token을 가졌는지 검사하는 코드
+        // 만약 유효하지 않은 토큰을 가졌다면, 이하 코드가 실행 안될터이고, websocket을 통해 보낸 메세지는 무시된다.
         String nickname = jwtTokenProvider.getUserNameFromJwt(token);
-
-
-        // 채팅방 입장 시에는 대화명과 메세지를 자동으로 세팅한다.
-        if(ChatMessage.MessageType.ENTER.equals(message.getType())){
-            message.setSender("[알림]");
-            message.setMessage(nickname + "님이 입장하셨습니다.");
-        }
 
         // 로그인 회원 정보로 대화명 설정
         message.setSender(nickname);
 
-        //WebSocket에 발행된 메세지를 redis로 발행(publish)
-        redisTemplate.convertAndSend(channelTopic.getTopic(), message);
+        // 채팅방 인원 수 세팅
+        message.setUserCount(chatRoomRepository.getUserCount(message.getRoomId()));
+
+        // WebSocket에 발행된 메세지를 redis로 발행
+        chatService.sendChatMessage(message);
+
+
     }
 }

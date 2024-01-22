@@ -42,7 +42,12 @@ public class ChatRoomController {
     @GetMapping("/rooms")
     @ResponseBody
     public List<ChatRoom> room() {
-        return chatRoomRepository.findAllRoom();
+        // 현재 저장고에 존재하는 방을 모두 찾고
+        List<ChatRoom> chatRooms = chatRoomRepository.findAllRoom();
+
+        // 방을 하나하나씩 순회하면서, 해당 방의 인원 수를 최신화
+        chatRooms.stream().forEach(room -> room.setUserCount(chatRoomRepository.getUserCount(room.getRoomId())));
+        return chatRooms;
     }
 
 
@@ -66,6 +71,12 @@ public class ChatRoomController {
     @GetMapping("/user")
     @ResponseBody
     public LoginInfo getUserInfo() {
+        /* 인증된 사용자 정보인 Principal을 Authentication에서 관리하고,
+         * Authentication을 SecurityContext에서 관리하고,
+         * SecurityContext는 SecurityContextHolder가 관리한다.
+        */
+
+        // 여기서는 인증된 사용자 정보를 꺼내서, 볼 수 있게 하는 로직이다.
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName();
         return LoginInfo.builder().name(name).token(jwtTokenProvider.generateToken(name)).build();
