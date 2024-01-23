@@ -1,0 +1,12 @@
+
+# 로컬 환경에서 테스트 시에 사용하는 설정 파일 이다.
+
+profiles:
+  active: local
+
+spring:
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
